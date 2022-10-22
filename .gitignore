@@ -1,0 +1,23 @@
+*.nar
+*.ear
+*.zip
+*.tarr.gz
+*.rar
+
+# User defined
+nbproject/private/
+build/
+dist/
+
+CaRMS-ejb/nbproject/private/
+CaRMS-ejb/build/
+CaRMS-ejb/dist/
+
+CaRMSClient-ejb/nbproject/private/
+CaRMSClient-ejb/build/
+CaRMSClient-ejb/dist/
+
+CaRMSLibrary-ejb/nbproject/private/
+CaRMSLibrary-ejb/build/
+CaRMSLibrary-ejb/dist/
+
