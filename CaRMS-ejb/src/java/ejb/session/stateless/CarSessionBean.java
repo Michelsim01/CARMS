@@ -27,7 +27,7 @@ public class CarSessionBean implements CarSessionBeanRemote, CarSessionBeanLocal
     // "Insert Code > Add Business Method")
     
     @Override
-    public Long createNewCra(Car car)
+    public Long createNewCar(Car car)
     {
         em.persist(car);
         em.flush();

@@ -40,10 +40,11 @@ public class DataInitSessionBean {
     {
         if(em.find(Car.class, 1L) == null)
         {
-            carSessionBeanLocal.createNewCra(new Car("S123456A"));
-            carSessionBeanLocal.createNewCra(new Car("S234567A"));
-            carSessionBeanLocal.createNewCra(new Car("S345678A"));
-            carSessionBeanLocal.createNewCra(new Car("S456789A"));
+            carSessionBeanLocal.createNewCar(new Car("S123456A"));
+            carSessionBeanLocal.createNewCar(new Car("S234567A"));
+            carSessionBeanLocal.createNewCar(new Car("S345678A"));
+            carSessionBeanLocal.createNewCar(new Car("S456789A"));
+            carSessionBeanLocal.createNewCar(new Car("S123341V"));
         }
     }
 }
