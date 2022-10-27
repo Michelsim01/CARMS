@@ -9,11 +9,9 @@ package util.enumeration;
  *
  * @author Jester
  */
-public enum EmployeeAccessEnum {
+public enum EmployeeEnum {
     
-    ADMINISTRATOR,
     SALES_MANAGER,
     OPERATIONS_MANAGER,
-    CUSTOEMR_SERVICE_EXECUTIVE,
-    EMPLOYEE
+    CUSTOMER_SERVICE_EXECUTIVE,
 }

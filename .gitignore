@@ -21,3 +21,5 @@ CaRMSLibrary-ejb/nbproject/private/
 CaRMSLibrary-ejb/build/
 CaRMSLibrary-ejb/dist/
 
+/CaRMSLibrary/nbproject/private/
+/CaRMSClient/nbproject/private/
