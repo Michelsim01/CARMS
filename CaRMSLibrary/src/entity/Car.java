@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import util.enumeration.CarStatusEnum;
 
 /**
  *
@@ -23,12 +24,26 @@ public class Car implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carId;
     private String licensePlate;
+    private String colour;
+    private CarStatusEnum status;
+    private Boolean disabled;
+    
 
     public Car() {
     }
 
-    public Car(String licensePlate) {
+    public Car(String licensePlate, String colour, CarStatusEnum status) {
         this.licensePlate = licensePlate;
+        this.colour = colour;
+        this.status = status;
+        this.disabled = false;
+    }
+    
+    public Car(String licensePlate, String colour, CarStatusEnum status, boolean disabled) {
+        this.licensePlate = licensePlate;
+        this.colour = colour;
+        this.status = status;
+        this.disabled = disabled;
     }
     
     public Long getCarId() {
@@ -37,6 +52,38 @@ public class Car implements Serializable {
 
     public void setCarId(Long carId) {
         this.carId = carId;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+
+    public CarStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(CarStatusEnum status) {
+        this.status = status;
+    }
+
+    public Boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 
     @Override
@@ -62,20 +109,6 @@ public class Car implements Serializable {
     @Override
     public String toString() {
         return "entity.Car[ id=" + carId + " ]";
-    }
-
-    /**
-     * @return the licensePlate
-     */
-    public String getLicensePlate() {
-        return licensePlate;
-    }
-
-    /**
-     * @param licensePlate the licensePlate to set
-     */
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
     }
     
 }

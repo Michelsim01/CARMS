@@ -3,6 +3,9 @@
   <persistence-unit name="CaRMS-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/carms</jta-data-source>
     <class>entity.Car</class>
+    <class>entity.CarCategory</class>
+    <class>entity.CarModel</class>
+    <class>entity.RentalRate</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
