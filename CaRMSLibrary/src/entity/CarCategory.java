@@ -20,9 +20,9 @@ public class CarCategory implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carCateogryId;
-    private String carCategory;
+    private String carCategoryName;
 
     public Long getCarCateogryId() {
         return carCateogryId;
@@ -32,12 +32,12 @@ public class CarCategory implements Serializable {
         this.carCateogryId = carCateogryId;
     }
 
-    public String getCarCategory() {
-        return carCategory;
+    public String getCarCategoryName() {
+        return carCategoryName;
     }
 
-    public void setCarCategory(String carCategory) {
-        this.carCategory = carCategory;
+    public void setCarCategoryName(String carCategoryName) {
+        this.carCategoryName = carCategoryName;
     }
 
     @Override

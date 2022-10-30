@@ -27,7 +27,7 @@ public class Employee implements Serializable {
     private String lastName;
     private String username;
     private String password;
-    private EmployeeEnum employee;
+    private EmployeeEnum accessRight;
 
     public Employee() {
     }
@@ -37,7 +37,7 @@ public class Employee implements Serializable {
         this.lastName = lastName;
         this.username = username;
         this.password = password;
-        this.employee = employee;
+        this.accessRight = employee;
     }
 
     
@@ -131,17 +131,17 @@ public class Employee implements Serializable {
     }
 
     /**
-     * @return the employee
+     * @return the accessRight
      */
-    public EmployeeEnum getEmployee() {
-        return employee;
+    public EmployeeEnum getAccessRight() {
+        return accessRight;
     }
 
     /**
-     * @param employee the employee to set
+     * @param accessRight the accessRight to set
      */
-    public void setEmployee(EmployeeEnum employee) {
-        this.employee = employee;
+    public void setAccessRight(EmployeeEnum accessRight) {
+        this.accessRight = accessRight;
     }
     
 }

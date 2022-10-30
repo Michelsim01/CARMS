@@ -30,7 +30,7 @@ public class Main {
         
         for(Car car:cars)
         {
-            System.out.println("carId=" + car.getCarId() + ";, licensePlate=" + car.getLicensePlate());
+            System.out.println("carId=" + car.getCarId() + ";, licensePlate=" + car.getLicensePlateNumber());
         }
     }
     

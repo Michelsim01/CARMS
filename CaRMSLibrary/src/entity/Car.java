@@ -23,27 +23,17 @@ public class Car implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carId;
-    private String licensePlate;
+    private String licensePlateNumber;
     private String colour;
     private CarStatusEnum status;
-    private Boolean disabled;
     
-
     public Car() {
     }
 
-    public Car(String licensePlate, String colour, CarStatusEnum status) {
-        this.licensePlate = licensePlate;
+    public Car(String licensePlateNumber, String colour, CarStatusEnum status) {
+        this.licensePlateNumber = licensePlateNumber;
         this.colour = colour;
         this.status = status;
-        this.disabled = false;
-    }
-    
-    public Car(String licensePlate, String colour, CarStatusEnum status, boolean disabled) {
-        this.licensePlate = licensePlate;
-        this.colour = colour;
-        this.status = status;
-        this.disabled = disabled;
     }
     
     public Long getCarId() {
@@ -54,12 +44,12 @@ public class Car implements Serializable {
         this.carId = carId;
     }
 
-    public String getLicensePlate() {
-        return licensePlate;
+    public String getLicensePlateNumber() {
+        return licensePlateNumber;
     }
 
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
+    public void setLicensePlateNumber(String licensePlateNumber) {
+        this.licensePlateNumber = licensePlateNumber;
     }
 
     public String getColour() {
@@ -76,14 +66,6 @@ public class Car implements Serializable {
 
     public void setStatus(CarStatusEnum status) {
         this.status = status;
-    }
-
-    public Boolean isDisabled() {
-        return disabled;
-    }
-
-    public void setDisabled(Boolean disabled) {
-        this.disabled = disabled;
     }
 
     @Override

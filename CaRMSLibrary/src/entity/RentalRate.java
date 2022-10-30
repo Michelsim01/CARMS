@@ -22,13 +22,24 @@ public class RentalRate implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rentalRateId;
     private String rentalRateName;
-    private BigDecimal dailyRate;
+    private Double dailyRate;
     private Date startDate;
     private Date endDate;
     private Boolean isEnabled;
+
+    public RentalRate() {
+    }
+
+    public RentalRate(String rentalRateName, Double dailyRate, Date startDate, Date endDate, Boolean isEnabled) {
+        this.rentalRateName = rentalRateName;
+        this.dailyRate = dailyRate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isEnabled = isEnabled;
+    }
 
     public Long getRentalRateId() {
         return rentalRateId;
@@ -46,11 +57,11 @@ public class RentalRate implements Serializable {
         this.rentalRateName = rentalRateName;
     }
 
-    public BigDecimal getDailyRate() {
+    public Double getDailyRate() {
         return dailyRate;
     }
 
-    public void setDailyRate(BigDecimal dailyRate) {
+    public void setDailyRate(Double dailyRate) {
         this.dailyRate = dailyRate;
     }
 

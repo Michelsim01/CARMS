@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,22 +24,22 @@ public class Outlet implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Long outletId;
     private String outletName;
     private String outletAddress;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date openingHour;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date closingHour;
+    private String openingTime; 
+    private String closingTime;
+    
 
     public Outlet() {
     }
 
-    public Outlet(String outletName, String outletAddress, Date openingHour, Date closingHour) {
+    public Outlet(String outletName, String outletAddress, String openingTime, String closingTime) {
         this.outletName = outletName;
         this.outletAddress = outletAddress;
-        this.openingHour = openingHour;
-        this.closingHour = closingHour;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
     }
 
     public Long getOutletId() {
@@ -103,31 +104,31 @@ public class Outlet implements Serializable {
     }
 
     /**
-     * @return the openingHour
+     * @return the openingTime
      */
-    public Date getOpeningHour() {
-        return openingHour;
+    public String getOpeningTime() {
+        return openingTime;
     }
 
     /**
-     * @param openingHour the openingHour to set
+     * @param openingTime the openingTime to set
      */
-    public void setOpeningHour(Date openingHour) {
-        this.openingHour = openingHour;
+    public void setOpeningTime(String openingTime) {
+        this.openingTime = openingTime;
     }
 
     /**
-     * @return the closingHour
+     * @return the closingTime
      */
-    public Date getClosingHour() {
-        return closingHour;
+    public String getClosingTime() {
+        return closingTime;
     }
 
     /**
-     * @param closingHour the closingHour to set
+     * @param closingTime the closingTime to set
      */
-    public void setClosingHour(Date closingHour) {
-        this.closingHour = closingHour;
+    public void setClosingTime(String closingTime) {
+        this.closingTime = closingTime;
     }
     
 }
