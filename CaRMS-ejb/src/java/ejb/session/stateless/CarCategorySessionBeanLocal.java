@@ -5,7 +5,7 @@
  */
 package ejb.session.stateless;
 
-import entity.Car;
+import entity.CarCategory;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,9 +14,12 @@ import javax.ejb.Local;
  * @author Jester
  */
 @Local
-public interface CarSessionBeanLocal {
+public interface CarCategorySessionBeanLocal {
 
-    public Long createNewCar(Long modelId, Long outletId, Car newCar);
+    public Long createCarCategory(CarCategory newCarCategory);
 
-    public List<Car> retrieveAllCars();    
+    public List<CarCategory> retrieveAllCarCategories();
+
+    public CarCategory retrieveCarCategoryByCarCategoryId(Long carCategoryId);
+    
 }

@@ -6,10 +6,16 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -21,15 +27,31 @@ public class CarCategory implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long carCateogryId;
+    private Long carCategoryId;
+    @Column(nullable = false, length = 32, unique = true)
+    @NotNull
     private String carCategoryName;
 
-    public Long getCarCateogryId() {
-        return carCateogryId;
+    @OneToMany(mappedBy = "carCategory")
+    private List<CarModel> carModels;
+    @OneToMany(mappedBy = "carCategory")
+    private List<RentalRate> rentalRates;
+    
+    public CarCategory() {
+        this.carModels = new ArrayList<>();
+        this.rentalRates = new ArrayList<>();
     }
 
-    public void setCarCateogryId(Long carCateogryId) {
-        this.carCateogryId = carCateogryId;
+    public CarCategory(String carCategoryName) {
+        this.carCategoryName = carCategoryName;
+    }
+    
+    public Long getCarCategoryId() {
+        return carCategoryId;
+    }
+
+    public void setCarCategoryId(Long carCategoryId) {
+        this.carCategoryId = carCategoryId;
     }
 
     public String getCarCategoryName() {
@@ -39,11 +61,28 @@ public class CarCategory implements Serializable {
     public void setCarCategoryName(String carCategoryName) {
         this.carCategoryName = carCategoryName;
     }
+    
+    @XmlTransient
+    public List<CarModel> getModels() {
+        return carModels;
+    }
+    
+    public void setModels(List<CarModel> carModels) {
+        this.carModels = carModels;
+    }
+    
+    public List<RentalRate> getRentalRates() {
+        return rentalRates;
+    }
+
+    public void setRentalRates(List<RentalRate> rentalRates) {
+        this.rentalRates = rentalRates;
+    }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (carCateogryId != null ? carCateogryId.hashCode() : 0);
+        hash += (carCategoryId != null ? carCategoryId.hashCode() : 0);
         return hash;
     }
 
@@ -54,7 +93,7 @@ public class CarCategory implements Serializable {
             return false;
         }
         CarCategory other = (CarCategory) object;
-        if ((this.carCateogryId == null && other.carCateogryId != null) || (this.carCateogryId != null && !this.carCateogryId.equals(other.carCateogryId))) {
+        if ((this.carCategoryId == null && other.carCategoryId != null) || (this.carCategoryId != null && !this.carCategoryId.equals(other.carCategoryId))) {
             return false;
         }
         return true;
@@ -62,7 +101,7 @@ public class CarCategory implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.CarCategory[ id=" + carCateogryId + " ]";
+        return "entity.CarCategory[ id=" + carCategoryId + " ]";
     }
     
 }
