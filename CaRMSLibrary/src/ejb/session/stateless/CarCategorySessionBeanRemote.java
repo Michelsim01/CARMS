@@ -5,7 +5,7 @@
  */
 package ejb.session.stateless;
 
-import entity.Car;
+import entity.CarCategory;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -14,9 +14,11 @@ import javax.ejb.Remote;
  * @author Jester
  */
 @Remote
-public interface CarSessionBeanRemote {
+public interface CarCategorySessionBeanRemote {
     
-    public Long createNewCar(Long modelId, Long outletId, Car newCar);
+    public Long createCarCategory(CarCategory newCarCategory);
     
-    public List<Car> retrieveAllCars();
+    public List<CarCategory> retrieveAllCarCategories();
+    
+    public CarCategory retrieveCarCategoryByCarCategoryId(Long carCategoryId);
 }

@@ -8,6 +8,7 @@ package entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,11 +31,17 @@ public class CarModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long carModelId;
+    @Column(nullable = false, length = 32)
+    @NotNull
     private String make;
+    @Column(nullable = false, length = 32, unique = true)
+    @NotNull
     private String model;
-    private Boolean enabled;
+    @Column(nullable = false)
+    @NotNull
+    private Boolean disabled;
 
-    @OneToMany(mappedBy = "model")
+    @OneToMany(mappedBy = "carModel")
     private List<Car> cars;
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
@@ -45,6 +54,7 @@ public class CarModel implements Serializable {
     public CarModel(String make, String model) {
         this.make = make;
         this.model = model;
+        disabled = false;
     }
     
     public Long getCarModelId() {
@@ -71,12 +81,12 @@ public class CarModel implements Serializable {
         this.model = model;
     }
 
-    public Boolean isEnabled() {
-        return enabled;
+    public Boolean isDisabled() {
+        return disabled;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void isDisabled(Boolean disabled) {
+        this.disabled = disabled;
     }
 
     public List<Car> getCars() {

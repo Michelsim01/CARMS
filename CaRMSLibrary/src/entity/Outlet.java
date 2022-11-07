@@ -6,13 +6,15 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -26,20 +28,48 @@ public class Outlet implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     private Long outletId;
+    @Column(nullable = false, length = 64, unique = true)
     private String outletName;
+    @Column(nullable = false, length = 128, unique = true)
     private String outletAddress;
+    @Column(nullable = false)
     private String openingTime; 
+    @Column(nullable = false)
     private String closingTime;
+    
+    @OneToMany(mappedBy="outlet", cascade = {}, fetch = FetchType.EAGER)
+    private List<Employee> employees;
+    
+    @OneToMany(mappedBy="outlet", cascade = {}, fetch = FetchType.EAGER)
+    private List<Car> cars;
+    
+    @OneToMany(mappedBy="dropOffOutlet", cascade = {}, fetch = FetchType.EAGER)
+    private List<TransitDriverDispatchRecord> transitDriverDispatchRecords;
     
 
     public Outlet() {
+        this.employees = new ArrayList<>();
+        this.cars = new ArrayList<>();
+        this.transitDriverDispatchRecords = new ArrayList<>();
+        
     }
 
     public Outlet(String outletName, String outletAddress, String openingTime, String closingTime) {
+        this();
         this.outletName = outletName;
         this.outletAddress = outletAddress;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
+    }
+
+    public Outlet(String outletName, String outletAddress, String openingTime, String closingTime, List<Employee> employees, List<Car> cars, List<TransitDriverDispatchRecord> transitDriverDispatchRecords) {
+        this.outletName = outletName;
+        this.outletAddress = outletAddress;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
+        this.employees = employees;
+        this.cars = cars;
+        this.transitDriverDispatchRecords = transitDriverDispatchRecords;
     }
 
     public Long getOutletId() {
@@ -129,6 +159,48 @@ public class Outlet implements Serializable {
      */
     public void setClosingTime(String closingTime) {
         this.closingTime = closingTime;
+    }
+
+    /**
+     * @return the employees
+     */
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    /**
+     * @param employees the employees to set
+     */
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    /**
+     * @return the cars
+     */
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    /**
+     * @param cars the cars to set
+     */
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    /**
+     * @return the transitDriverDispatchRecords
+     */
+    public List<TransitDriverDispatchRecord> getTransitDriverDispatchRecords() {
+        return transitDriverDispatchRecords;
+    }
+
+    /**
+     * @param transitDriverDispatchRecords the transitDriverDispatchRecords to set
+     */
+    public void setTransitDriverDispatchRecords(List<TransitDriverDispatchRecord> transitDriverDispatchRecords) {
+        this.transitDriverDispatchRecords = transitDriverDispatchRecords;
     }
     
 }
