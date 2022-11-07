@@ -5,18 +5,13 @@
  */
 package ejb.session.stateless;
 
-import entity.Car;
-import java.util.List;
 import javax.ejb.Local;
 
 /**
  *
- * @author Jester
+ * @author michelsim
  */
 @Local
-public interface CarSessionBeanLocal {
-
-    public Long createNewCar(Long modelId, Long outletId, Car newCar);
-
-    public List<Car> retrieveAllCars();    
+public interface TransitDriverDispatchRecordLocal {
+    
 }

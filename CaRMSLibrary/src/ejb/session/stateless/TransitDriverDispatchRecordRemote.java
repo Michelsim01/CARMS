@@ -5,18 +5,13 @@
  */
 package ejb.session.stateless;
 
-import entity.Car;
-import java.util.List;
 import javax.ejb.Remote;
 
 /**
  *
- * @author Jester
+ * @author michelsim
  */
 @Remote
-public interface CarSessionBeanRemote {
+public interface TransitDriverDispatchRecordRemote {
     
-    public Long createNewCar(Long modelId, Long outletId, Car newCar);
-    
-    public List<Car> retrieveAllCars();
 }

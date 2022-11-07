@@ -7,10 +7,15 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -23,8 +28,23 @@ public class TransitDriverDispatchRecord implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transitDriverDispatchRecordId;
+    @Column(nullable = false)
     private Boolean isComplete;
+    @Column(nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date transitDate;
+    
+    @ManyToOne(optional = false, cascade = {})
+    @JoinColumn(nullable = false)
+    private Employee transitDriver;
+    
+    @ManyToOne(optional = false, cascade = {})
+    @JoinColumn(nullable = false)
+    private Outlet dropOffOutlet;
+    
+    @OneToOne(optional = false, cascade = {})
+    @JoinColumn(nullable = false)
+    private Reservation reservation;
 
     public TransitDriverDispatchRecord() {
     }
@@ -33,9 +53,15 @@ public class TransitDriverDispatchRecord implements Serializable {
         this.isComplete = isComplete;
         this.transitDate = transitDate;
     }
-    
-    
 
+    public TransitDriverDispatchRecord(Boolean isComplete, Date transitDate, Employee transitDriver, Outlet dropOffOutlet, Reservation reservation) {
+        this.isComplete = isComplete;
+        this.transitDate = transitDate;
+        this.transitDriver = transitDriver;
+        this.dropOffOutlet = dropOffOutlet;
+        this.reservation = reservation;
+    }
+    
     public Long getTransitDriverDispatchRecordId() {
         return transitDriverDispatchRecordId;
     }
@@ -95,6 +121,48 @@ public class TransitDriverDispatchRecord implements Serializable {
      */
     public void setTransitDate(Date transitDate) {
         this.transitDate = transitDate;
+    }
+
+    /**
+     * @return the transitDriver
+     */
+    public Employee getTransitDriver() {
+        return transitDriver;
+    }
+
+    /**
+     * @param transitDriver the transitDriver to set
+     */
+    public void setTransitDriver(Employee transitDriver) {
+        this.transitDriver = transitDriver;
+    }
+
+    /**
+     * @return the dropOffOutlet
+     */
+    public Outlet getDropOffOutlet() {
+        return dropOffOutlet;
+    }
+
+    /**
+     * @param dropOffOutlet the dropOffOutlet to set
+     */
+    public void setDropOffOutlet(Outlet dropOffOutlet) {
+        this.dropOffOutlet = dropOffOutlet;
+    }
+
+    /**
+     * @return the reservation
+     */
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    /**
+     * @param reservation the reservation to set
+     */
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
     
 }

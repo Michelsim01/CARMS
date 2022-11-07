@@ -8,10 +8,20 @@ package entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,12 +34,28 @@ public class RentalRate implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rentalRateId;
+    @Column(nullable = false)
+    @NotNull
     private String rentalRateName;
+    @Column(nullable = false,precision = 11)
+    @NotNull
+    @DecimalMin("0.00")
+    @DecimalMax("1000000.00")
+    @Digits(integer=10, fraction=2)
     private Double dailyRate;
+    
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
+    @Column(nullable = false)
+    @NotNull
     private Boolean isEnabled;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private CarCategory carCategory;
+    
     public RentalRate() {
     }
 
@@ -88,6 +114,16 @@ public class RentalRate implements Serializable {
     public void setIsEnabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
+    
+    @XmlTransient
+    public CarCategory getCarCategory() {
+        return carCategory;
+    }
+
+    public void setCarCategory(CarCategory carCategory) {
+        this.carCategory = carCategory;
+    }
+
 
     @Override
     public int hashCode() {

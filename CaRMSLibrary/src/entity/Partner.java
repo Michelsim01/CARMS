@@ -6,10 +6,15 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,17 +27,34 @@ public class Partner implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long partnerId;
+    @Column(nullable = false, length = 64, unique = true)
     private String partnerName; 
+    @Column(nullable = false, length = 64)
     private String password;
+    
+    @OneToMany(mappedBy="partner", cascade = {}, fetch = FetchType.EAGER)
+    private List<Reservation> reservations;
+    
+    @OneToMany(mappedBy="partner", fetch = FetchType.EAGER)
+    private List<Customer> customers;
 
     public Partner() {
+        this.reservations = new ArrayList<>();
+        this.customers = new ArrayList<>();
     }
 
     public Partner(String partnerName, String password) {
+        this();
         this.partnerName = partnerName;
         this.password = password;
     }
-    
+
+    public Partner(String partnerName, String password, List<Reservation> reservations, List<Customer> customers) {
+        this.partnerName = partnerName;
+        this.password = password;
+        this.reservations = reservations;
+        this.customers = customers;
+    }
     
     public Long getPartnerId() {
         return partnerId;
@@ -93,6 +115,34 @@ public class Partner implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the reservations
+     */
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    /**
+     * @param reservations the reservations to set
+     */
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    /**
+     * @return the customers
+     */
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    /**
+     * @param customers the customers to set
+     */
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
     }
     
 }

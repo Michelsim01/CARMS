@@ -5,12 +5,13 @@
  */
 package ejb.session.stateless;
 
-import entity.Car;
+import entity.CarCategory;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -20,33 +21,35 @@ import javax.validation.ValidatorFactory;
  * @author Jester
  */
 @Stateless
-public class CarSessionBean implements CarSessionBeanRemote, CarSessionBeanLocal {
+public class CarCategorySessionBean implements CarCategorySessionBeanRemote, CarCategorySessionBeanLocal {
 
     @PersistenceContext(unitName = "CaRMS-ejbPU")
     private EntityManager em;
-
+    
     private final ValidatorFactory validatorFactory;
     private final Validator validator;
 
-    public CarSessionBean() {
+    public CarCategorySessionBean() {
         this.validatorFactory = Validation.buildDefaultValidatorFactory();
         this.validator = validatorFactory.getValidator();
     }
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 
     @Override
-    public Long createNewCar(Long modelId, Long outletId, Car newCar) {
-        em.persist(newCar);
+    public Long createCarCategory(CarCategory newCarCategory) {
+        em.persist(newCarCategory);
         em.flush();
-
-        return newCar.getCarId();
+        return newCarCategory.getCarCategoryId();
     }
-
+    
     @Override
-    public List<Car> retrieveAllCars() {
-        Query query = em.createQuery("SELECT c FROM Car c");
-
+    public List<CarCategory> retrieveAllCarCategories() {
+        Query query = em.createQuery("SELECT c FROM CarCategory c");
         return query.getResultList();
+    }
+    
+    @Override
+    public CarCategory retrieveCarCategoryByCarCategoryId(Long carCategoryId) {
+        CarCategory carCategory = em.find(CarCategory.class, carCategoryId);
+        return carCategory;
     }
 }
