@@ -49,7 +49,7 @@ public class OwnCustomer extends Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.OwnCustomer[ id=" + id + " ]";
+        return "entity.OwnCustomer[ id=" + this.customerId + " ]";
     }
 
     /**
