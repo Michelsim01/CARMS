@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import util.exception.EmployeeNotFoundException;
@@ -37,11 +38,12 @@ public class EmployeeSessionBean implements EmployeeSessionBeanRemote, EmployeeS
 
     private final ValidatorFactory validatorFactory;
     private final Validator validator;
+    
 
-
-    public EmployeeSessionBean(ValidatorFactory validatorFactory, Validator validator) {
-        this.validatorFactory = validatorFactory;
-        this.validator = validator;
+    public EmployeeSessionBean() {
+        
+        this.validatorFactory = Validation.buildDefaultValidatorFactory();
+        this.validator = validatorFactory.getValidator();
     }
 
     @Override

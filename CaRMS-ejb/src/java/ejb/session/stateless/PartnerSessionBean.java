@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import util.exception.InputDataValidationException;
@@ -33,9 +34,10 @@ public class PartnerSessionBean implements PartnerSessionBeanRemote, PartnerSess
     private final Validator validator;
 
 
-    public PartnerSessionBean(ValidatorFactory validatorFactory, Validator validator) {
-        this.validatorFactory = validatorFactory;
-        this.validator = validator;
+    public PartnerSessionBean() {
+        
+        this.validatorFactory = Validation.buildDefaultValidatorFactory();
+        this.validator = validatorFactory.getValidator();
     }
     
     @Override
