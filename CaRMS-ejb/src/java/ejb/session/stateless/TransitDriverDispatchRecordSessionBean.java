@@ -54,6 +54,7 @@ public class TransitDriverDispatchRecordSessionBean implements TransitDriverDisp
         this.validator = validatorFactory.getValidator();
     }
 
+    @Override
     public Long createTransitDriverDispatchRecord(TransitDriverDispatchRecord newTransitDriverDispatchRecord, Long employeeId, Long dropOffOutletId, Long reservationId) throws EmployeeNotFoundException, OutletNotFoundException, ReservationNotFoundException, UnknownPersistenceException, InputDataValidationException {
 
         Set<ConstraintViolation<TransitDriverDispatchRecord>> constraintViolations = validator.validate(newTransitDriverDispatchRecord);
@@ -102,6 +103,7 @@ public class TransitDriverDispatchRecordSessionBean implements TransitDriverDisp
         }
     }
     
+    @Override
     public TransitDriverDispatchRecord retrieveTransitDriverDispatchRecordById(Long id) throws TransitDriverDispatchRecordNotFoundException {
          TransitDriverDispatchRecord transitDriverDispatchRecord = em.find(TransitDriverDispatchRecord.class, id);
         
