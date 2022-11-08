@@ -3,16 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb.session.stateless;
-
-import javax.ejb.Stateless;
+package util.exception;
 
 /**
  *
  * @author michelsim
  */
-@Stateless
-public class TransitDriverDispatchRecord implements TransitDriverDispatchRecordRemote, TransitDriverDispatchRecordLocal {
+public class CustomerNotFoundException extends Exception {
 
-    
+   
+    public CustomerNotFoundException() {
+    }
+
+    public CustomerNotFoundException(String msg) {
+        super(msg);
+    }
 }
