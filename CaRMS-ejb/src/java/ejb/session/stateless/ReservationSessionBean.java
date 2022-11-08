@@ -21,6 +21,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import util.exception.CarNotFoundException;
 import util.exception.CustomerNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.OutletNotFoundException;
@@ -55,7 +56,7 @@ public class ReservationSessionBean implements ReservationSessionBeanRemote, Res
         this.validator = validatorFactory.getValidator();
     }
 
-    public Long createReservation(Reservation newReservation, Long customerId, Long carId, Long pickUpOutletId, Long returnOutletId) throws CustomerNotFoundException, OutletNotFoundException, CarNotFoundException {
+    public Long createReservation(Reservation newReservation, Long customerId, Long carId, Long pickUpOutletId, Long returnOutletId) throws CustomerNotFoundException, OutletNotFoundException, CarNotFoundException, UnknownPersistenceException, InputDataValidationException {
 
         Set<ConstraintViolation<Reservation>> constraintViolations = validator.validate(newReservation);
 

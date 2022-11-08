@@ -29,4 +29,6 @@ public interface CarSessionBeanRemote {
     
     public void updateCar(Car car) throws CarNotFoundException, InputDataValidationException;
     
+    public Car retrieveCarById(Long carId) throws CarNotFoundException;
+    
 }

@@ -28,4 +28,8 @@ public interface CarSessionBeanLocal {
     public void deleteCar(Long carId) throws CarNotFoundException;
 
     public void updateCar(Car car) throws CarNotFoundException, InputDataValidationException;
+
+    public Car retrieveCarById(Long carId) throws CarNotFoundException;
+    
+    
 }

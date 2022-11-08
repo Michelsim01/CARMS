@@ -27,20 +27,20 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long customerId;
+    protected Long customerId;
     @Column(nullable = false, length = 64, unique = true)
-    private String customerName;
+    protected String customerName;
     @Column(nullable = false, length = 64)
-    private String email;
+    protected String email;
     @Column(nullable = false, length = 64)
-    private String creditCardNumber;
-    @Column(nullable = false, length = 64)
+    protected String creditCardNumber;
+    @Column (nullable = false, length = 64)
     private String cvv;
     @Column(nullable = false, length = 64)
-    private String cardExpirationDate;
+    protected String cardExpirationDate;
     
     @OneToMany(mappedBy="customer", cascade = {}, fetch = FetchType.EAGER)
-    private List<Reservation> reservations;
+    protected List<Reservation> reservations;
     
     @ManyToOne
     private Partner partner;

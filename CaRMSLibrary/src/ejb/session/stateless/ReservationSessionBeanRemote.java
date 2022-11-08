@@ -5,7 +5,15 @@
  */
 package ejb.session.stateless;
 
+import entity.Reservation;
+import java.util.List;
 import javax.ejb.Remote;
+import util.exception.CarNotFoundException;
+import util.exception.CustomerNotFoundException;
+import util.exception.InputDataValidationException;
+import util.exception.OutletNotFoundException;
+import util.exception.ReservationNotFoundException;
+import util.exception.UnknownPersistenceException;
 
 /**
  *
@@ -13,5 +21,13 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface ReservationSessionBeanRemote {
+    
+    public Reservation retrieveReservationById(Long reservationId) throws ReservationNotFoundException;
+
+    public Long createReservation(Reservation newReservation, Long customerId, Long carId, Long pickUpOutletId, Long returnOutletId) throws CustomerNotFoundException, OutletNotFoundException, CarNotFoundException, UnknownPersistenceException, InputDataValidationException;
+
+    public void cancelReservation(Long reservationId) throws ReservationNotFoundException;
+
+    public List<Reservation> retrieveAllReservations();
     
 }

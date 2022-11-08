@@ -22,9 +22,13 @@ public class OwnCustomer extends Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(nullable = false, length = 64, unique = true)
     private String username;
+    @Column(nullable = false, length = 64)
     private String password;
+    @Column(nullable = false, length = 64, unique = true)
     private String passportNumber;
+    @Column(nullable = false, length = 64, unique = true)
     private String mobileNumber;
 
     @Override
