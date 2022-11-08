@@ -45,13 +45,13 @@ public class Car implements Serializable {
     @NotNull
     private Boolean isDisabled;
     
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private CarModel carModel;
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(nullable = true)
     private Outlet outlet;
-    @OneToOne(optional = true, fetch = FetchType.EAGER)
+    @OneToOne(optional = true, fetch = FetchType.LAZY)
     private Reservation reservation;
     
     public Car() {

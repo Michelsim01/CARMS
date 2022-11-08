@@ -8,17 +8,19 @@ package ejb.session.stateless;
 import entity.CarCategory;
 import entity.CarModel;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import util.exception.CarCategoryNotFoundException;
 import util.exception.CarModelNotFoundException;
+import util.exception.InputDataValidationException;
 
 /**
  *
@@ -66,13 +68,55 @@ public class CarModelSessionBean implements CarModelSessionBeanRemote, CarModelS
     }
 
     @Override
-    public CarModel retrieveModelByModelId(Long modelId) throws CarModelNotFoundException {
+    public CarModel retrieveModelById(Long modelId) throws CarModelNotFoundException {
         CarModel carModel = em.find(CarModel.class, modelId);
-
         if (carModel != null) {
             return carModel;
         } else {
             throw new CarModelNotFoundException("Model ID " + modelId + " does not exist!");
         }
+    }
+
+    @Override
+    public void deleteModel(Long modelId) throws CarModelNotFoundException {
+        try {
+            CarModel modelToDelete = retrieveModelById(modelId);
+
+            if (modelToDelete.getCars().isEmpty()) {
+                em.remove(modelToDelete);
+            } else {
+                modelToDelete.isDisabled(true);
+            }
+        } catch (CarModelNotFoundException ex) {
+            throw new CarModelNotFoundException("Model ID " + modelId + " does not exist.");
+        }
+    }
+
+    @Override
+    public void updateModel(CarModel model) throws CarModelNotFoundException, InputDataValidationException {
+        if (model != null && model.getCarModelId() != null) {
+            Set<ConstraintViolation<CarModel>> constraintViolations = validator.validate(model);
+
+            if (constraintViolations.isEmpty()) {
+                try {
+                    CarModel modelToUpdate = retrieveModelById(model.getCarModelId());
+                    modelToUpdate.setMake(model.getMake());
+                    modelToUpdate.setModel(model.getModel());
+                    modelToUpdate.isDisabled(model.isDisabled());
+                } catch (CarModelNotFoundException ex) {
+                    throw new CarModelNotFoundException("Model Id for model to be updated is not found!");
+                }
+            } else {
+                throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
+            }
+        }
+    }
+
+    private String prepareInputDataValidationErrorsMessage(Set<ConstraintViolation<CarModel>> constraintViolations) {
+        String msg = "Input data validation error!:";
+        for (ConstraintViolation constraintViolation : constraintViolations) {
+            msg += "\n\t" + constraintViolation.getPropertyPath() + " - " + constraintViolation.getInvalidValue() + "; " + constraintViolation.getMessage();
+        }
+        return msg;
     }
 }
