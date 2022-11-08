@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 import util.enumeration.CarStatusEnum;
@@ -48,11 +49,11 @@ public class Car implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false)
     private CarModel carModel;
-    @ManyToOne(optional = true, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = true)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false)
     private Outlet outlet;
-    @OneToOne(optional = true, fetch = FetchType.EAGER)
-    private Reservation reservation;
+    @OneToMany(mappedBy="car", cascade = {}, fetch = FetchType.EAGER)
+    private List<Reservation> reservations;
     
     public Car() {
     }
@@ -121,14 +122,7 @@ public class Car implements Serializable {
         this.outlet = outlet;
     }
     
-    @XmlTransient
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
+   
 
     @Override
     public int hashCode() {
@@ -153,6 +147,20 @@ public class Car implements Serializable {
     @Override
     public String toString() {
         return "entity.Car[ id=" + carId + " ]";
+    }
+
+    /**
+     * @return the reservations
+     */
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    /**
+     * @param reservations the reservations to set
+     */
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
     
 }

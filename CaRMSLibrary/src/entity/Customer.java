@@ -6,10 +6,16 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,16 +28,29 @@ public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
+    @Column(nullable = false, length = 64, unique = true)
     private String customerName;
+    @Column(nullable = false, length = 64)
     private String email;
+    @Column(nullable = false, length = 64)
     private String creditCardNumber;
+    @Column(nullable = false, length = 64)
     private String cvv;
+    @Column(nullable = false, length = 64)
     private String cardExpirationDate;
+    
+    @OneToMany(mappedBy="customer", cascade = {}, fetch = FetchType.EAGER)
+    private List<Reservation> reservations;
+    
+    @ManyToOne
+    private Partner partner;
 
     public Customer() {
+        this.reservations = new ArrayList<>();
     }
 
     public Customer(String customerName, String email, String creditCardNumber, String cvv, String cardExpirationDate) {
+        this();
         this.customerName = customerName;
         this.email = email;
         this.creditCardNumber = creditCardNumber;
@@ -39,6 +58,17 @@ public class Customer implements Serializable {
         this.cardExpirationDate = cardExpirationDate;
     }
 
+    public Customer(String customerName, String email, String creditCardNumber, String cvv, String cardExpirationDate, List<Reservation> reservations, Partner partner) {
+        this.customerName = customerName;
+        this.email = email;
+        this.creditCardNumber = creditCardNumber;
+        this.cvv = cvv;
+        this.cardExpirationDate = cardExpirationDate;
+        this.reservations = reservations;
+        this.partner = partner;
+    }
+
+    
     public Long getCustomerId() {
         return customerId;
     }
@@ -140,6 +170,34 @@ public class Customer implements Serializable {
      */
     public void setCardExpirationDate(String cardExpirationDate) {
         this.cardExpirationDate = cardExpirationDate;
+    }
+
+    /**
+     * @return the reservations
+     */
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    /**
+     * @param reservations the reservations to set
+     */
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    /**
+     * @return the partner
+     */
+    public Partner getPartner() {
+        return partner;
+    }
+
+    /**
+     * @param partner the partner to set
+     */
+    public void setPartner(Partner partner) {
+        this.partner = partner;
     }
     
 }
