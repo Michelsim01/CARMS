@@ -96,6 +96,7 @@ public class CarSessionBean implements CarSessionBeanRemote, CarSessionBeanLocal
         return query.getResultList();
     }
 
+    @Override
     public Car retrieveCarById(Long carId) throws CarNotFoundException {
         Car car = em.find(Car.class, carId);
         if (car != null) {
