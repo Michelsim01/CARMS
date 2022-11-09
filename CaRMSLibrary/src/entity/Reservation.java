@@ -63,7 +63,7 @@ public class Reservation implements Serializable {
     @OneToOne(optional = false, fetch = FetchType.EAGER)
     private Outlet returnOutlet;
     
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany
     private List<RentalRate> rentalRates;
     
     @ManyToOne
